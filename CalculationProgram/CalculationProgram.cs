@@ -1,9 +1,14 @@
 ﻿using System;
+using CalculationProgram.Interfaces;
 
 namespace CalculationProgram;
-    class CalculationProgram
+class CalculationProgram
+{
+    static void Main(string[] args)
     {
-        static void Main(string[] args) {
-                       Console.WriteLine("Hello world!");
-        }
+        IMenu controlMenu = new ControlMenu();
+
+        controlMenu.callMenu();
+
     }
+}

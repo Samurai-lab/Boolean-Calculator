@@ -9,5 +9,6 @@ namespace CalculationProgram.Interfaces
     {
         public void createOwnUniversum();
         public void createRandomUniversum();
+        public int[] getUniversum();
     }
 }

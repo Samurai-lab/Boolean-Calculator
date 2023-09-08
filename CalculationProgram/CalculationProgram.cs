@@ -12,9 +12,13 @@ class CalculationProgram
         controlMenu.callMenu();
         universum.createOwnUniversum();
 
-        for (int count = 0; count < universum.getUniversum().Length; count++)
+        Bunch a = new Bunch(universum);
+
+        a.addElements();
+
+        for (int count = 0; count < a.getBunch().Length; count++)
         {
-            Console.WriteLine(universum.getUniversum()[count]);
+            Console.WriteLine(a.getBunch()[count]);
         }
 
     }

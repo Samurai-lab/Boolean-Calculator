@@ -10,7 +10,7 @@ namespace CalculationProgram
     {
         IUniversum universum = new Universum();
         private int[] bunch = new int[0];
-        int lenghtOfBunch;
+        int lenghtBunch;
 
         public Bunch(IUniversum newUniversum)
         {
@@ -19,15 +19,31 @@ namespace CalculationProgram
 
         public void addElements()
         {
+            bunchSizeChange();
+            writeBunchElements();
+        }
+
+        public string printBunchElements()
+        {
+            var text = "";
+            foreach (int elements in bunch)
+            {
+                text += elements + " ";
+            }
+            return text;
+        }
+
+        private void bunchSizeChange()
+        {
             bool cycleGo = true;
             while (cycleGo)
             {
-                Console.WriteLine("Введите количество элементво вашего множества, которое больше 0, но меньше " + universum.getUniversum().Length);
-                if (int.TryParse(Console.ReadLine(), out lenghtOfBunch))
+                Console.WriteLine("Введите количество элементов вашего множества, которое больше 0, но меньше " + universum.getUniversum().Length);
+                if (int.TryParse(Console.ReadLine(), out lenghtBunch))
                 {
-                    if (lenghtOfBunch < universum.getUniversum().Length & lenghtOfBunch > 0)
+                    if (lenghtBunch < universum.getUniversum().Length & lenghtBunch > 0)
                     {
-                        Array.Resize(ref bunch, lenghtOfBunch);
+                        Array.Resize(ref bunch, lenghtBunch);
                         cycleGo = false;
                     }
                 }
@@ -36,9 +52,13 @@ namespace CalculationProgram
                     Console.WriteLine("Введите значение правильно!");
                 }
             }
+        }
 
-            Console.WriteLine("Введите элементы вашего множества,не выходя за промежуток от " +
-                            universum.getUniversum()[0] + " до " + universum.getUniversum()[universum.getUniversum().Length - 1] + ")");
+        private void writeBunchElements()
+        {
+            Console.WriteLine("Введите элементы вашего множества,не выходя за промежуток от "
+                              + universum.getUniversum()[0] + " до "
+                              + universum.getUniversum()[universum.getUniversum().Length - 1] + ")");
             for (int count = 0; count < bunch.Length; count++)
             {
                 int element;

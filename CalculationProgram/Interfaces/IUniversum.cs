@@ -8,7 +8,6 @@ namespace CalculationProgram.Interfaces
     public interface IUniversum
     {
         public void createOwnUniversum();
-        public void createRandomUniversum();
         public int[] getUniversum();
     }
 }

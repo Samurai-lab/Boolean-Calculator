@@ -3,14 +3,16 @@ using System;
 using CalculationProgram.Interfaces;
 using System.Text.RegularExpressions;
 using System.IO.Compression;
+using CalculationProgram.Classes;
 
 namespace CalculationProgram;
 class CalculationProgram
 {
     static void Main(string[] args)
     {
-        IExpression expression = new Expression();
-        IMenu controlMenu = new ControlMenu();
+        /*  IExpression expression = new Expression(); */
+        Operations operations = new Operations();
+        IMenu menuSelector = new MenuSelector();
         IUniversum universum = new Universum();
         Bunch[] bunches = new Bunch[0];
 
@@ -21,7 +23,7 @@ class CalculationProgram
         while (!exitApp)
         {
             Console.Clear();
-            controlMenu.CallMenu();
+            menuSelector.CallMainMenu();
             answer = Console.ReadLine();
             switch (answer)
             {
@@ -84,10 +86,17 @@ class CalculationProgram
                     break;
 
                 case "5":
-                    Console.WriteLine("Введите вырожение:");
-                    String text = Console.ReadLine();
-
-                    
+                    if (universumLenght == 0)
+                    {
+                        printUniversumError();
+                        break;
+                    }
+                    else if (bunches.Length == 0)
+                    {
+                        printBunchError();
+                        break;
+                    };
+                    operations.operationSelector();
 
                     /* bool flag = Regex.IsMatch(text, @"^[A-Z]+\/\(.*\)[+-][A-Z]+\/\\[A-Z]$"
 );
@@ -100,8 +109,6 @@ class CalculationProgram
                         Console.ReadKey();
                         break;
                     } */
-                    System.Console.WriteLine("Неверный формат строки!");
-                    Console.ReadKey();
                     break;
 
                 case "6":

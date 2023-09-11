@@ -6,11 +6,10 @@ using CalculationProgram.Interfaces;
 
 namespace CalculationProgram
 {
-    public class ControlMenu : IMenu
+    public class MenuSelector : IMenu
     {
-        void IMenu.CallMenu()
+        public void CallMainMenu()
         {
-            
             Console.WriteLine(
                   "Выберите вариант действия:\n"
                 + "1. Задать универсум\n"
@@ -21,7 +20,18 @@ namespace CalculationProgram
                 + "6. Выход\n"
             );
 
-            
+        }
+
+        public void CallOperationsMenu()
+        {
+            Console.WriteLine(
+                  "Выберите вариант действия:\n"
+                + "1. Пересечение\n"
+                + "2. Обьединение\n"
+                + "3. Разность\n"
+                + "4. Геометрическая разность\n"
+                + "5. Выход\n"
+            );
         }
     }
 }

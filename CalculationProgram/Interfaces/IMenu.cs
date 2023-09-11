@@ -7,7 +7,8 @@ namespace CalculationProgram.Interfaces
 {
     public interface IMenu
     {
-        public void CallMenu();
+        public void CallMainMenu();
+        public void CallOperationsMenu();
 
     }
 }

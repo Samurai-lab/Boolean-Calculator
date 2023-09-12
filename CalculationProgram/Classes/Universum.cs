@@ -27,32 +27,14 @@ namespace CalculationProgram
                 start++;
             }
         }
-        void IUniversum.createRandomUniversum()
-        {
-            Random random = new Random();
-            createBorders();
-            int value = random.Next(start, final);
 
-            for (int count = 0; start < final; count++)
-            {
-                u[count] = value;
-                start++;
-            }
-        }
-
-        int[] IUniversum.getUniversum() { return u; }
-
-        bool getInfoAboutCreate()
-        {
-            if (u.Length > 0) { return true; }
-            return false;
-        }
+        int[] IUniversum.getUniversum() => u;
 
         private void createBorders()
         {
             while (final <= start)
             {
-                Console.WriteLine("Введине начальную границу занчений:");
+                Console.WriteLine("Введине начальную границу значений:");
                 if (int.TryParse(Console.ReadLine(), out start)) { }
                 else
                 {

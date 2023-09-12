@@ -11,10 +11,11 @@ class CalculationProgram
     static void Main(string[] args)
     {
         /*  IExpression expression = new Expression(); */
-        Operations operations = new Operations();
+        
         IMenu menuSelector = new MenuSelector();
         IUniversum universum = new Universum();
         Bunch[] bunches = new Bunch[0];
+        Operations operations = new Operations(bunches);
 
         bool exitApp = false;
         string answer;
@@ -52,6 +53,7 @@ class CalculationProgram
                         bunches[num] = new Bunch(universum);
                         bunches[num].addElements();
                     }
+                    operations = new Operations(bunches);
                     break;
 
                 case "3":
@@ -96,7 +98,7 @@ class CalculationProgram
                         printBunchError();
                         break;
                     };
-                    operations.operationSelector();
+                    operations.OperationSelector();
 
                     /* bool flag = Regex.IsMatch(text, @"^[A-Z]+\/\(.*\)[+-][A-Z]+\/\\[A-Z]$"
 );

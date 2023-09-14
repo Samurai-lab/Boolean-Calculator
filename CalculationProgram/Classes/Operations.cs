@@ -34,7 +34,6 @@ namespace CalculationProgram.Classes
                 switch (answer)
                 {
                     case "1":
-
                         int finalMassivElements = 0;
                         int[] mass = MinLenghtBunch();
                         switch (bunchesResult.Length - 1)
@@ -87,12 +86,106 @@ namespace CalculationProgram.Classes
                         Array.Resize(ref finalBunch, finalBunchCounter);
                         return finalBunch;
 
+
                     case "3":
-                        break;
+                        int fBunchCount = 0;
+                        int[] fBunchMass = bunchesResult[0].getBunch();
+                        int[] sBunchMass = bunchesResult[1].getBunch();
+                        switch (bunchesResult.Length - 1)
+                        {
+                            case 2:
+                                for (int element = 0; element < fBunchMass.Length; element++)
+                                {
+                                    if (!sBunchMass.Contains(fBunchMass[element]))
+                                    {
+                                        finalBunch[fBunchCount] = fBunchMass[element];
+                                        fBunchCount++;
+                                    }
+                                }
+                                break;
+                            case 3:
+                                int[] thrithBunchMass = bunchesResult[2].getBunch();
+                                for (int element = 0; element < fBunchMass.Length; element++)
+                                {
+                                    if (!sBunchMass.Contains(fBunchMass[element])
+                                        && !thrithBunchMass.Contains(fBunchMass[element]))
+                                    {
+                                        finalBunch[fBunchCount] = fBunchMass[element];
+                                        fBunchCount++;
+                                    }
+                                }
+                                break;
+                            default:
+                                Console.WriteLine("Не найдено итоговое значение");
+                                break;
+                        }
+                        Array.Resize(ref finalBunch, fBunchCount);
+                        return finalBunch;
 
                     case "4":
+                        int finalBunchCounters = 0;
+                        int[] firstBunchMass = bunchesResult[0].getBunch();
+                        int[] secondBunchMass = bunchesResult[1].getBunch();
+                        switch (bunchesResult.Length - 1)
+                        {
+                            case 2:
+                                for (int element = 0; element < firstBunchMass.Length; element++)
+                                {
+                                    if (!secondBunchMass.Contains(firstBunchMass[element]))
+                                    {
+                                        finalBunch[finalBunchCounters] = firstBunchMass[element];
+                                        finalBunchCounters++;
+                                    }
+                                }
 
-                        break;
+                                for (int element = 0; element < secondBunchMass.Length; element++)
+                                {
+                                    if (!firstBunchMass.Contains(secondBunchMass[element]))
+                                    {
+                                        finalBunch[finalBunchCounters] = secondBunchMass[element];
+                                        finalBunchCounters++;
+                                    }
+                                }
+                                break;
+                            case 3:
+                                int[] thrithBunchMass = bunchesResult[2].getBunch();
+                                for (int element = 0; element < firstBunchMass.Length; element++)
+                                {
+                                    if (!secondBunchMass.Contains(firstBunchMass[element])
+                                        && !thrithBunchMass.Contains(firstBunchMass[element]))
+                                    {
+                                        finalBunch[finalBunchCounters] = firstBunchMass[element];
+                                        finalBunchCounters++;
+                                    }
+                                }
+
+                                for (int element = 0; element < secondBunchMass.Length; element++)
+                                {
+                                    if (!firstBunchMass.Contains(secondBunchMass[element])
+                                        && !thrithBunchMass.Contains(secondBunchMass[element]))
+                                    {
+                                        finalBunch[finalBunchCounters] = secondBunchMass[element];
+                                        finalBunchCounters++;
+                                    }
+                                }
+
+                                for (int element = 0; element < thrithBunchMass.Length; element++)
+                                {
+                                    if (!firstBunchMass.Contains(thrithBunchMass[element])
+                                        && !secondBunchMass.Contains(thrithBunchMass[element]))
+                                    {
+                                        finalBunch[finalBunchCounters] = thrithBunchMass[element];
+                                        finalBunchCounters++;
+                                    }
+                                }
+                                break;
+                            default:
+                                Console.WriteLine("Не найдено итоговое значение");
+                                break;
+                        }
+                        Array.Resize(ref finalBunch, finalBunchCounters);
+                        return finalBunch;
+
 
                     case "5":
                         back = true;

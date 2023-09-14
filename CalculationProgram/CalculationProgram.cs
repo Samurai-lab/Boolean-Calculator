@@ -11,7 +11,7 @@ class CalculationProgram
     static void Main(string[] args)
     {
         /*  IExpression expression = new Expression(); */
-        
+
         IMenu menuSelector = new MenuSelector();
         IUniversum universum = new Universum();
         Bunch[] bunches = new Bunch[0];
@@ -40,12 +40,15 @@ class CalculationProgram
                         break;
                     };
 
-                    Console.WriteLine("Введиете кол-во множеств (1 - 3):");
+                    Console.WriteLine("Введиете кол-во множеств (2 - 3):");
 
                     int bunchCount;
                     bool checkElement = int.TryParse(Console.ReadLine(), out bunchCount);
 
-                    if (!checkElement && bunchCount < 1 && bunchCount > 3) break;
+                    if (!checkElement && bunchCount < 2 && bunchCount > 3)
+                    {
+                        break;
+                    }
                     Array.Resize(ref bunches, bunchCount);
                     for (int num = 0; num < bunchCount; num++)
                     {
@@ -55,7 +58,6 @@ class CalculationProgram
                     }
                     operations = new Operations(bunches);
                     break;
-
                 case "3":
                     if (universumLenght == 0)
                     {
@@ -98,19 +100,14 @@ class CalculationProgram
                         printBunchError();
                         break;
                     };
-                    operations.OperationSelector();
 
-                    /* bool flag = Regex.IsMatch(text, @"^[A-Z]+\/\(.*\)[+-][A-Z]+\/\\[A-Z]$"
-);
-                    System.Console.WriteLine(flag);
-                    if (Regex.IsMatch(text, @"^[A-Z]+\/\(.*\)[+-][A-Z]+\/\\[A-Z]$"
-))
+                    int[] displayMass = operations.OperationSelector();
+                    foreach (int num in displayMass)
                     {
-                        expression.setExpression(text);
-                        expression.SolvingExpression();
-                        Console.ReadKey();
-                        break;
-                    } */
+                        System.Console.Write(num + " ");
+                    }
+
+                    Console.ReadKey();
                     break;
 
                 case "6":

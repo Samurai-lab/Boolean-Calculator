@@ -10,6 +10,7 @@ namespace CalculationProgram
     {
         IUniversum universum = new Universum();
         private int[] bunch = new int[0];
+
         int lenghtBunch;
 
         public Bunch(IUniversum newUniversum)
@@ -62,22 +63,30 @@ namespace CalculationProgram
             for (int count = 0; count < bunch.Length; count++)
             {
                 int element;
-                bool testElement = int.TryParse(Console.ReadLine(), out element);
-                if (universum.getUniversum().Contains(element) && testElement)
+                bool testParseElement = int.TryParse(Console.ReadLine(), out element);
+
+                if (universum.getUniversum().Contains(element) && testParseElement && !bunch.Contains(element))
                 {
                     bunch[count] = element;
                 }
                 else
                 {
-                    Console.WriteLine("Введите элемент в пределах допустимого значения");
+                    Console.WriteLine("Введите элемент в пределах допустимого значения  и не повторяющийся");
                     count--;
                 }
             }
         }
 
-        public int[] getBunch()
+        public int[] getBunch() => bunch;
+
+        public int GetBunchLenght()
         {
-            return bunch;
+            int lenght = 0;
+            foreach (int count in bunch)
+            {
+                lenght++;
+            }
+            return lenght;
         }
     }
 }

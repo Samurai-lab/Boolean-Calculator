@@ -10,5 +10,7 @@ namespace CalculationProgram.Interfaces
         public void CallMainMenu();
         public void CallOperationsMenu();
 
+        public void CallOperationsTypeMenu();
+
     }
 }

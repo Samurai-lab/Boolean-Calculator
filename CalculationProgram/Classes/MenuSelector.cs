@@ -33,5 +33,16 @@ namespace CalculationProgram
                 + "5. Выход\n"
             );
         }
+
+        public void CallOperationsTypeMenu()
+        {
+            Console.WriteLine(
+                  "Выберите вариант действия:\n"
+                + "1. Ручной ввод\n"
+                + "2. Ввод при помощи рандомайзера\n"
+                + "3. Ввод условиями\n"
+                + "4. Выход\n"
+            );
+        }
     }
 }

@@ -7,9 +7,6 @@ namespace CalculationProgram
 {
     public interface IExpression
     { 
-        public string getExpression(); 
-        public void setExpression(String text); 
-        public void SolvingExpression();
-        
+       public void UseExpression();
     }
 }

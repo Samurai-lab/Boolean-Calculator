@@ -39,19 +39,6 @@ namespace CalculationProgram
             return expressionText;
         }
 
-        /* private int CountingParentheses(String text)
-        {
-            int counter = 0;
-            foreach (Char element in text)
-            {
-                if (element.Equals("("))
-                {
-                    counter++;
-                }
-            }
-            return counter;
-        } */
-
         string IExpression.getExpression()
         {
             return expressionText;

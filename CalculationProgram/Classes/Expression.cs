@@ -99,45 +99,6 @@ namespace CalculationProgram
                         break;
                 }
             }
-            //     for (int i = 0; i < tokens.Length; i += 2)
-            //     {
-            //         System.Console.WriteLine("tokens[i] = " + tokens[i]);
-            //         string setName = tokens[i];
-            //         string operatorSymbol = "";
-            //         if (i + 1 != tokens.Length)
-            //         {
-            //             System.Console.WriteLine("tokens[i + 1] = " + tokens[i + 1]);
-            //             operatorSymbol = tokens[i + 1];
-            //         }
-
-            //         if (!sets.ContainsKey(setName))
-            //         {
-            //             sets[setName] = new HashSet<int>();
-            //         }
-
-            //             case "+":
-            //                     string otherSetName = tokens[i + 2];
-            //                     sets[setName].UnionWith(sets[otherSetName]);
-            //                 break;
-            //             case "-":
-            //                 string otherSetNameInfo = tokens[i + 2];
-            //                 sets[setName].ExceptWith(sets[otherSetNameInfo]);
-            //                 break;
-
-            //             default:
-            //                 break;
-            //         }
-            //         // Выводим результат расчета (все элементы оставшихся множеств)
-            //         Console.WriteLine("Результат:");
-            //         foreach (KeyValuePair<string, HashSet<int>> set in sets)
-            //         {
-            //             Console.WriteLine($"{set.Key} = [{string.Join(", ", set.Value)}]");
-            //         }
-
-            //         Console.ReadKey();
-            //     }
-
-            // }
         }
 
         private void AddValueElements(string tokenName, ref Dictionary<string, HashSet<int>> sets)

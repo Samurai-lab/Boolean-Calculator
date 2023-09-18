@@ -10,12 +10,11 @@ class CalculationProgram
 {
     static void Main(string[] args)
     {
-        /*  IExpression expression = new Expression(); */
-
         IMenu menuSelector = new MenuSelector();
         IUniversum universum = new Universum();
         Bunch[] bunches = new Bunch[0];
         Operations operations = new Operations(bunches);
+        IExpression expression = new Expression();
 
         bool exitApp = false;
         string answer;
@@ -25,7 +24,9 @@ class CalculationProgram
         {
             Console.Clear();
             menuSelector.CallMainMenu();
+#pragma warning disable CS8600
             answer = Console.ReadLine();
+#pragma warning restore CS8600
             switch (answer)
             {
                 case "1":
@@ -111,6 +112,10 @@ class CalculationProgram
                     break;
 
                 case "6":
+                    expression.UseExpression();
+                    break;
+
+                case "7":
                     exitApp = true;
                     break;
 

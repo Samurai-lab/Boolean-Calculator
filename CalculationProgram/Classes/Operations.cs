@@ -26,7 +26,9 @@ namespace CalculationProgram.Classes
             {
                 Console.Clear();
                 menuSelector.CallOperationsMenu();
+                #pragma warning disable CS8600
                 answer = Console.ReadLine();
+                #pragma warning restore CS8600
                 Console.Clear();
                 AddOperatingElement();
                 finalBunch = new int[MaxLenghtBunches()];
@@ -198,7 +200,6 @@ namespace CalculationProgram.Classes
                 }
             }
             return finalBunch;
-
         }
 
         /*      private string AskAboutCombination()
@@ -256,7 +257,7 @@ namespace CalculationProgram.Classes
                     bunchesResult[0] = bunches[0];
                 }
                 else if (element == 'B')
-                {
+                { 
                     bunchesResult[1] = bunches[1];
                 }
                 else

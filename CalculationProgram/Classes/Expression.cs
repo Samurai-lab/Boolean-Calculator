@@ -169,7 +169,6 @@ namespace CalculationProgram
                 }
                 else if (brekets[count] == "t")
                 {
-
                 }
                 count += 2;
             }

@@ -186,6 +186,7 @@ namespace CalculationProgram
             Console.ReadKey();
             namesCount++;
         }
+        
 
         private void AnalysisFragmentOperations(string[] brekets, int count,
                                 ref Dictionary<string, HashSet<int>> setsBuf,

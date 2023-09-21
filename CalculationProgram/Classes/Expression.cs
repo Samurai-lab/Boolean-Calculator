@@ -77,38 +77,167 @@ namespace CalculationProgram
 
         private void UnidentifiedExpression(ref string input, ref Dictionary<string, HashSet<int>> sets)
         {
-            int breakNum = 0;
-            MatchCollection matches = Regex.Matches(expressionText, pattern);
-            foreach (Match match in matches)
+            bool allElementAdded = true;
+            MatchCollection letterMatches = Regex.Matches(input, "[A-Z]");
+            foreach (Match match in letterMatches)
             {
-                breakNum++;
-                text = match.Groups[breakNum].Value;
-                
-                bracketsExpression[breakNum] = text;
-                expressionText.Replace(text, "1");
-            }
-            return expressionText;
-        }
-
-        /* private int CountingParentheses(String text)
-        {
-            int counter = 0;
-            foreach (Char element in text)
-            {
-                if (element.Equals("("))
+                if (!sets.ContainsKey(match.Value))
                 {
-                    counter++;
+                    AddDictionaryValue(match.Value, ref sets);
+                    if (!sets.ContainsKey(match.Value))
+                    {
+                        allElementAdded = false;
+                        break;
+                    }
                 }
             }
-            return counter;
-        } */
 
-        string IExpression.getExpression()
-        {
-            return expressionText;
+            if (allElementAdded)
+            {
+                MatchCollection letterMatchesBrekets = Regex.Matches(input, @"\((.*?)\)");
+
+                int numNameCall = 1;
+                foreach (Match match in letterMatchesBrekets)
+                {
+                    string bunchName = "" + (TegNames)numNameCall;
+
+                    AnalysisFragment(ref sets, match.Groups[1].Value, ref input, bunchName);
+                    input = input.Replace("(" + match.Groups[1].Value + ")", bunchName);
+                    numNameCall++;
+                }
+                AnalysisFragment(ref sets, input, ref input, "J");
+                for (; numNameCall >= 1; numNameCall--)
+                {
+                    string bunchName = "" + (TegNames)numNameCall;
+                    sets.Remove(bunchName);
+                }
+            }
         }
 
-        void IExpression.setExpression(String text)
+        private void AddDictionaryValue(string tokenName, ref Dictionary<string, HashSet<int>> sets)
+        {
+            sets[tokenName] = new HashSet<int>();
+            System.Console.WriteLine("How much elements in " + tokenName + " (write like: 1,2,3...)");
+            string newInput = Console.ReadLine();
+
+            // Разбиваем введенную строку на операторы и операнды множеств
+            string[] newTokens = newInput.Split();
+            string[] numbers = newTokens[0].Split(',');
+            foreach (string number in numbers)
+            {
+                if (universumElement.getUniversum().Contains(int.Parse(number)) && !sets[tokenName].Contains(int.Parse(number)))
+                {
+                    sets[tokenName].Add(int.Parse(number));
+                }
+                else
+                {
+                    Console.WriteLine("Присутствуют повторяющиеся и не входящие в универсум элементы!");
+                    sets.Remove(tokenName);
+                    Console.ReadKey();
+                }
+            }
+        }
+
+        private void AddDictionaryValue(string tokenName, string input, ref Dictionary<string, HashSet<int>> sets)
+        {
+            sets[tokenName] = new HashSet<int>();
+            string[] numbers = input.Split(',');
+            foreach (string number in numbers)
+            {
+                if (universumElement.getUniversum().Contains(int.Parse(number)) && !sets[tokenName].Contains(int.Parse(number)))
+                {
+                    sets[tokenName].Add(int.Parse(number));
+                }
+                else
+                {
+                    Console.WriteLine("Присутствуют повторяющиеся и не входящие в универсум элементы!");
+                    sets.Remove(tokenName);
+                    Console.ReadKey();
+                    break;
+                }
+            }
+        }
+
+        private void AnalysisFragment(ref Dictionary<string, HashSet<int>> sets, string match, ref string input, string token)
+        {
+            Dictionary<string, HashSet<int>> setsBuf = new Dictionary<string, HashSet<int>>();
+            setsBuf[token] = new HashSet<int>();
+            int count = 1;
+            int namesCount = 1;
+            string[] brekets = match.Split(" ");
+            int breketsLenght = 0;
+            if (brekets.Length > 3)
+            {
+                breketsLenght = brekets.Length / 2;
+            }
+            else
+            {
+                breketsLenght = brekets.Length / 3;
+            }
+            for (int i = 0; i < breketsLenght; i++)
+            {
+                AnalysisFragmentOperations(brekets, count, ref setsBuf, token, ref sets);
+                count += 2;
+            }
+
+            Console.Clear();
+            System.Console.WriteLine("Итоговое множество: ");
+            PrintDictionaryElements(setsBuf);
+            Console.ReadKey();
+            namesCount++;
+        }
+
+        private void AnalysisFragmentOperations(string[] brekets, int count,
+                                ref Dictionary<string, HashSet<int>> setsBuf,
+                                string token, ref Dictionary<string,
+                                HashSet<int>> sets)
+        {
+            if (brekets[count] == "+")
+            {
+                string otherSetNameFirst = brekets[count - 1];
+                string otherSetNameSecond = brekets[count + 1];
+                setsBuf[token].UnionWith(sets[otherSetNameFirst]);
+                setsBuf[token].UnionWith(sets[otherSetNameSecond]);
+            }
+            else if (brekets[count] == "-")
+            {
+                string otherSetNameFirst = brekets[count - 1];
+                string otherSetNameSecond = brekets[count + 1];
+                sets["hp"] = new HashSet<int>();
+                sets["hp"].UnionWith(sets[otherSetNameFirst]);
+                sets["hp"].IntersectWith(sets[otherSetNameSecond]);
+                setsBuf[token].UnionWith(sets["hp"]);
+                sets.Remove("hp");
+            }
+            else if (brekets[count] == "/")
+            {
+                string otherSetNameFirst = brekets[count - 1];
+                string otherSetNameSecond = brekets[count + 1];
+                sets["hp"] = new HashSet<int>();
+                sets["hp"].UnionWith(sets[otherSetNameFirst]);
+                sets["hp"].ExceptWith(sets[otherSetNameSecond]);
+                setsBuf[token].UnionWith(sets["hp"]);
+                sets.Remove("hp");
+            }
+            else if (brekets[count] == "t")
+            {
+                string otherSetNameFirst = brekets[count - 1];
+                string otherSetNameSecond = brekets[count + 1];
+                sets["hpFirst"] = new HashSet<int>();
+                sets["hpSecond"] = new HashSet<int>();
+                sets["hpFirst"].UnionWith(sets[otherSetNameFirst]);
+                sets["hpFirst"].IntersectWith(sets[otherSetNameSecond]);
+                sets["hpSecond"].UnionWith(sets[otherSetNameFirst]);
+                sets["hpSecond"].UnionWith(sets[otherSetNameSecond]);
+                sets["hpSecond"].ExceptWith(sets["hpFirst"]);
+                setsBuf[token].UnionWith(sets["hpSecond"]);
+                sets.Remove("hpFirst");
+                sets.Remove("hpSecond");
+
+            }
+        }
+
+        private void PrintDictionaryElements(Dictionary<string, HashSet<int>> sets)
         {
             foreach (KeyValuePair<string, HashSet<int>> set in sets)
             {

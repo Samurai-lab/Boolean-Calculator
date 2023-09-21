@@ -112,7 +112,12 @@ class CalculationProgram
                     break;
 
                 case "6":
-                    expression.UseExpression();
+                    if (universumLenght == 0)
+                    {
+                        printUniversumError();
+                        break;
+                    };
+                    expression.UseExpression(universum);
                     break;
 
                 case "7":

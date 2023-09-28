@@ -39,7 +39,7 @@ namespace CalculationProgram
                             randomBunchElements();
                             break;
                         case 3:
-                            /* expressionsBunchElements(); */
+                            expressionsBunchElements();
                             break;
                         case 4:
                             exit = false;
@@ -57,6 +57,8 @@ namespace CalculationProgram
 
             }
         }
+
+
 
         public string printBunchElements()
         {
@@ -113,23 +115,79 @@ namespace CalculationProgram
 
         private void randomBunchElements()
         {
-            Console.WriteLine("Введите элементы вашего множества,не выходя за промежуток от "
-                              + universum.getUniversum()[0] + " до "
-                              + universum.getUniversum()[universum.getUniversum().Length - 1] + ")");
+            int element;
             for (int count = 0; count < bunch.Length; count++)
             {
-                
                 Random random = new Random();
-                int element = random.Next(universum.getUniversum()[0], universum.getUniversum()[universum.getUniversum().Length - 1]);
-
+                element = random.Next(universum.getUniversum()[0], universum.getUniversum()[universum.getUniversum().Length - 1]);
                 if (universum.getUniversum().Contains(element) && !bunch.Contains(element))
                 {
                     bunch[count] = element;
                 }
                 else
                 {
-                    Console.WriteLine("Введите элемент в пределах допустимого значения  и не повторяющийся");
                     count--;
+                }
+            }
+        }
+
+        private void expressionsBunchElements()
+        {
+            int start = 0;
+            int fin = 0;
+            Console.WriteLine("Введите промежуток, откуда будут браться элементы вашего множества в пределах от "
+                              + universum.getUniversum()[0] + " до "
+                              + universum.getUniversum()[universum.getUniversum().Length - 1]);
+            if (!(int.TryParse(Console.ReadLine(), out start)
+                && int.TryParse(Console.ReadLine(), out fin)))
+            {
+                start = universum.getUniversum()[0];
+                fin = universum.getUniversum()[universum.getUniversum().Length - 1];
+            }
+            string text = "";
+            System.Console.WriteLine("Положительные (+), отрицательные (-) или любые (|) числа прромежутка");
+            text = Console.ReadLine();
+            int element;
+            for (int count = 0; count < bunch.Length; count++)
+            {
+                Random random = new Random();
+                element = random.Next(start, fin);
+                if (text == "+")
+                {
+                    if (universum.getUniversum().Contains(element) && !bunch.Contains(element) && element > 0)
+                    {
+                        bunch[count] = element;
+                    }
+                    else
+                    {
+                        count--;
+                    }
+                }
+                else if (text == "-")
+                {
+                    if (universum.getUniversum().Contains(element) && !bunch.Contains(element) && element < 0)
+                    {
+                        bunch[count] = element;
+                    }
+                    else
+                    {
+                        count--;
+                    }
+                }
+                else if (text == "|")
+                {
+                    if (universum.getUniversum().Contains(element) && !bunch.Contains(element))
+                    {
+                        bunch[count] = element;
+                    }
+                    else
+                    {
+                        count--;
+                    }
+                }
+                else
+                {
+                    break;
                 }
             }
         }

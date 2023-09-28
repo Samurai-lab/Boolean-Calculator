@@ -15,6 +15,7 @@ class CalculationProgram
         Bunch[] bunches = new Bunch[0];
         Operations operations = new Operations(bunches);
         IExpression expression = new Expression();
+        Dictionary<string, HashSet<int>> setsElement = new Dictionary<string, HashSet<int>>();
 
         bool exitApp = false;
         string answer;
@@ -51,11 +52,18 @@ class CalculationProgram
                         break;
                     }
                     Array.Resize(ref bunches, bunchCount);
+                    HashSet<int> helpHash;
                     for (int num = 0; num < bunchCount; num++)
                     {
                         Console.WriteLine("Множество " + (BunchNames)num);
                         bunches[num] = new Bunch(universum);
                         bunches[num].addElements();
+                        helpHash = new HashSet<int>();
+                        foreach (int numb in bunches[num].getBunch())
+                        {
+                            helpHash.Add(numb);
+                        }
+                        setsElement["" + (BunchNames)num] = helpHash;
                     }
                     operations = new Operations(bunches);
                     break;
@@ -117,7 +125,7 @@ class CalculationProgram
                         printUniversumError();
                         break;
                     };
-                    expression.UseExpression(universum);
+                    expression.UseExpression(universum, setsElement);
                     break;
 
                 case "7":

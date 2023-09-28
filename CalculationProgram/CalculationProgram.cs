@@ -10,12 +10,12 @@ class CalculationProgram
 {
     static void Main(string[] args)
     {
-        /*  IExpression expression = new Expression(); */
-
         IMenu menuSelector = new MenuSelector();
         IUniversum universum = new Universum();
         Bunch[] bunches = new Bunch[0];
         Operations operations = new Operations(bunches);
+        IExpression expression = new Expression();
+        Dictionary<string, HashSet<int>> setsElement = new Dictionary<string, HashSet<int>>();
 
         bool exitApp = false;
         string answer;
@@ -25,7 +25,9 @@ class CalculationProgram
         {
             Console.Clear();
             menuSelector.CallMainMenu();
+#pragma warning disable CS8600
             answer = Console.ReadLine();
+#pragma warning restore CS8600
             switch (answer)
             {
                 case "1":
@@ -50,11 +52,18 @@ class CalculationProgram
                         break;
                     }
                     Array.Resize(ref bunches, bunchCount);
+                    HashSet<int> helpHash;
                     for (int num = 0; num < bunchCount; num++)
                     {
                         Console.WriteLine("Множество " + (BunchNames)num);
                         bunches[num] = new Bunch(universum);
                         bunches[num].addElements();
+                        helpHash = new HashSet<int>();
+                        foreach (int numb in bunches[num].getBunch())
+                        {
+                            helpHash.Add(numb);
+                        }
+                        setsElement["" + (BunchNames)num] = helpHash;
                     }
                     operations = new Operations(bunches);
                     break;
@@ -111,6 +120,15 @@ class CalculationProgram
                     break;
 
                 case "6":
+                    if (universumLenght == 0)
+                    {
+                        printUniversumError();
+                        break;
+                    };
+                    expression.UseExpression(universum, setsElement);
+                    break;
+
+                case "7":
                     exitApp = true;
                     break;
 

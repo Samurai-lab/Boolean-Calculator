@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Threading.Tasks;
 using CalculationProgram.Interfaces;
 
@@ -11,6 +12,7 @@ namespace CalculationProgram
         IUniversum universum = new Universum();
         private int[] bunch = new int[0];
 
+        IMenu menuSelector = new MenuSelector();
         int lenghtBunch;
 
         public Bunch(IUniversum newUniversum)
@@ -21,8 +23,42 @@ namespace CalculationProgram
         public void addElements()
         {
             bunchSizeChange();
-            writeBunchElements();
+            int answer = 0;
+            bool exit = true;
+            while (exit)
+            {
+                menuSelector.CallOperationsTypeMenu();
+                if (int.TryParse(Console.ReadLine(), out answer))
+                {
+                    switch (answer)
+                    {
+                        case 1:
+                            writeBunchElements();
+                            break;
+                        case 2:
+                            randomBunchElements();
+                            break;
+                        case 3:
+                            expressionsBunchElements();
+                            break;
+                        case 4:
+                            exit = false;
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+
+                }
+                else
+                {
+                    System.Console.WriteLine("Неверно задано значение!");
+                }
+
+            }
         }
+
+
 
         public string printBunchElements()
         {
@@ -73,6 +109,85 @@ namespace CalculationProgram
                 {
                     Console.WriteLine("Введите элемент в пределах допустимого значения  и не повторяющийся");
                     count--;
+                }
+            }
+        }
+
+        private void randomBunchElements()
+        {
+            int element;
+            for (int count = 0; count < bunch.Length; count++)
+            {
+                Random random = new Random();
+                element = random.Next(universum.getUniversum()[0], universum.getUniversum()[universum.getUniversum().Length - 1]);
+                if (universum.getUniversum().Contains(element) && !bunch.Contains(element))
+                {
+                    bunch[count] = element;
+                }
+                else
+                {
+                    count--;
+                }
+            }
+        }
+
+        private void expressionsBunchElements()
+        {
+            int start = 0;
+            int fin = 0;
+            Console.WriteLine("Введите промежуток, откуда будут браться элементы вашего множества в пределах от "
+                              + universum.getUniversum()[0] + " до "
+                              + universum.getUniversum()[universum.getUniversum().Length - 1]);
+            if (!(int.TryParse(Console.ReadLine(), out start)
+                && int.TryParse(Console.ReadLine(), out fin)))
+            {
+                start = universum.getUniversum()[0];
+                fin = universum.getUniversum()[universum.getUniversum().Length - 1];
+            }
+            string text = "";
+            System.Console.WriteLine("Положительные (+), отрицательные (-) или любые (|) числа прромежутка");
+            text = Console.ReadLine();
+            int element;
+            for (int count = 0; count < bunch.Length; count++)
+            {
+                Random random = new Random();
+                element = random.Next(start, fin);
+                if (text == "+")
+                {
+                    if (universum.getUniversum().Contains(element) && !bunch.Contains(element) && element > 0)
+                    {
+                        bunch[count] = element;
+                    }
+                    else
+                    {
+                        count--;
+                    }
+                }
+                else if (text == "-")
+                {
+                    if (universum.getUniversum().Contains(element) && !bunch.Contains(element) && element < 0)
+                    {
+                        bunch[count] = element;
+                    }
+                    else
+                    {
+                        count--;
+                    }
+                }
+                else if (text == "|")
+                {
+                    if (universum.getUniversum().Contains(element) && !bunch.Contains(element))
+                    {
+                        bunch[count] = element;
+                    }
+                    else
+                    {
+                        count--;
+                    }
+                }
+                else
+                {
+                    break;
                 }
             }
         }

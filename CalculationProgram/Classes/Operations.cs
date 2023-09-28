@@ -26,7 +26,9 @@ namespace CalculationProgram.Classes
             {
                 Console.Clear();
                 menuSelector.CallOperationsMenu();
+#pragma warning disable CS8600
                 answer = Console.ReadLine();
+#pragma warning restore CS8600
                 Console.Clear();
                 AddOperatingElement();
                 finalBunch = new int[MaxLenghtBunches()];
@@ -198,73 +200,10 @@ namespace CalculationProgram.Classes
                 }
             }
             return finalBunch;
-
         }
-
-        /*      private string AskAboutCombination()
-             {
-                 string first = "";
-                 string second = "";
-                 string thrith = "";
-                 int numberBunches;
-                 System.Console.WriteLine("С каким количеством множеств вы хотите провести операцию? (Доступно " +
-                                             bunches.Length + " множество)");
-                 if (int.TryParse(Console.ReadLine(), out numberBunches))
-                 {
-                     switch (numberBunches)
-                     {
-                         case 1:
-                             first = "A";
-                             break;
-                         case 2:
-                             if (bunches.Length == 3)
-                             {
-                                 System.Console.WriteLine("Введине название первого множества:");
-                                 first = Console.ReadLine();
-                                 System.Console.WriteLine("Введине название второго множества:");
-                                 second = Console.ReadLine();
-                             }
-                             else
-                             {
-                                 first = "A";
-                                 second = "B";
-                             }
-                             break;
-                         case 3:
-                             first = "A";
-                             second = "B";
-                             thrith = "C";
-                             break;
-                         default:
-                             break;
-                     }
-                 }
-                 else
-                 {
-                     System.Console.WriteLine("Введено недопустимое значение!");
-                 }
-
-                 return first + second + thrith;
-             } */
 
         private void AddOperatingElement()
         {
-            /* foreach (char element in text)
-            {
-                if (element == 'A')
-                {
-                    bunchesResult[0] = bunches[0];
-                }
-                else if (element == 'B')
-                {
-                    bunchesResult[1] = bunches[1];
-                }
-                else
-                {
-                    bunchesResult[2] = bunches[2];
-                }
-            } */
-
             int count = 0;
             foreach (Bunch bunch in bunches)
             {

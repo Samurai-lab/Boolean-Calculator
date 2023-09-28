@@ -30,10 +30,13 @@ namespace CalculationProgram
                 Console.Clear();
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         string IExpression.getExpression()
         {
             return expressionText;
 =======
+=======
+>>>>>>> e69366846f270c3a1bb303575b17d536cbb87ddd
                 menu.CallExpressionMenu();
                 System.Console.WriteLine("Выберите пункт меню");
                 if (!int.TryParse(Console.ReadLine(), out answere))
@@ -79,7 +82,10 @@ namespace CalculationProgram
                         break;
                 }
             }
+<<<<<<< HEAD
 >>>>>>> develop
+=======
+>>>>>>> e69366846f270c3a1bb303575b17d536cbb87ddd
         }
 
         private void UnidentifiedExpression(ref string input, ref Dictionary<string, HashSet<int>> sets)

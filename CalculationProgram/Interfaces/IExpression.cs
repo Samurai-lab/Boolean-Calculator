@@ -8,6 +8,6 @@ namespace CalculationProgram
 {
     public interface IExpression
     { 
-       public void UseExpression(IUniversum  universum);
+       public void UseExpression(IUniversum  universum, Dictionary<string, HashSet<int>> setElement);
     }
 }

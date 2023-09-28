@@ -11,13 +11,14 @@ namespace CalculationProgram
     public class Expression : IExpression
     {
         IUniversum universumElement;
+        Dictionary<string, HashSet<int>> sets = new Dictionary<string, HashSet<int>>();
 
-        public void UseExpression(IUniversum universum)
+        public void UseExpression(IUniversum universum, Dictionary<string, HashSet<int>> setElement)
         {
 
             universumElement = universum;
+            if(setElement.Count > 0) sets =  setElement;
 
-            Dictionary<string, HashSet<int>> sets = new Dictionary<string, HashSet<int>>();
             Regex regexExpression = new Regex(@"^(\(*[A-Z]\s[-+/t]\s\(*[A-Z]\)*\s*(\s*[-+/t]\s*\(*[A-Z]\)*\s*)*){1,24}$");
             Regex regexBunch = new Regex(@"^[A-Z]\s[=]\s([-]*[0-9]+[,])*[-]*[0-9]+$");
             IMenu menu = new MenuSelector();

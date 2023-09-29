@@ -17,7 +17,7 @@ namespace CalculationProgram
         {
 
             universumElement = universum;
-            if(setElement.Count > 0) sets =  setElement;
+            if (setElement.Count > 0) sets = setElement;
 
             Regex regexExpression = new Regex(@"^(\(*[A-Z]\s[-+/t]\s\(*[A-Z]\)*\s*(\s*[-+/t]\s*\(*[A-Z]\)*\s*)*){1,24}$");
             Regex regexBunch = new Regex(@"^[A-Z]\s[=]\s([-]*[0-9]+[,])*[-]*[0-9]+$");
@@ -29,14 +29,6 @@ namespace CalculationProgram
             {
                 Console.Clear();
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-        string IExpression.getExpression()
-        {
-            return expressionText;
-=======
-=======
->>>>>>> e69366846f270c3a1bb303575b17d536cbb87ddd
                 menu.CallExpressionMenu();
                 System.Console.WriteLine("Выберите пункт меню");
                 if (!int.TryParse(Console.ReadLine(), out answere))
@@ -82,10 +74,6 @@ namespace CalculationProgram
                         break;
                 }
             }
-<<<<<<< HEAD
->>>>>>> develop
-=======
->>>>>>> e69366846f270c3a1bb303575b17d536cbb87ddd
         }
 
         private void UnidentifiedExpression(ref string input, ref Dictionary<string, HashSet<int>> sets)
@@ -192,11 +180,18 @@ namespace CalculationProgram
                 AnalysisFragmentOperations(brekets, count, ref setsBuf, token, ref sets);
                 count += 2;
             }
-
+            foreach (string elements in setsBuf.Keys)
+            {
+                sets.Add(elements, setsBuf[elements]);
+            }
             Console.Clear();
-            System.Console.WriteLine("Итоговое множество: ");
-            PrintDictionaryElements(setsBuf);
-            Console.ReadKey();
+            if (sets.ContainsKey("J"))
+            {
+                System.Console.WriteLine("Итоговое множество: ");
+                PrintDictionaryElements(setsBuf);
+                Console.ReadKey();
+            }
+            sets.Remove("J");
             namesCount++;
         }
 

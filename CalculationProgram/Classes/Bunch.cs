@@ -144,14 +144,15 @@ namespace CalculationProgram
                 start = universum.getUniversum()[0];
                 fin = universum.getUniversum()[universum.getUniversum().Length - 1];
             }
+            start = Math.Abs(universum.getUniversum()[0]) - Math.Abs(start);
+            fin = universum.getUniversum().Length - 1 - (universum.getUniversum()[universum.getUniversum().Length - 1] - fin);
             string text = "";
             System.Console.WriteLine("Положительные (+), отрицательные (-) или любые (|) числа прромежутка");
             text = Console.ReadLine();
             int element;
             for (int count = 0; count < bunch.Length; count++)
             {
-                Random random = new Random();
-                element = random.Next(start, fin);
+                element = universum.getUniversum()[start];
                 if (text == "+")
                 {
                     if (universum.getUniversum().Contains(element) && !bunch.Contains(element) && element > 0)
@@ -189,6 +190,8 @@ namespace CalculationProgram
                 {
                     break;
                 }
+                if (start == fin) break;
+                start++;
             }
         }
 

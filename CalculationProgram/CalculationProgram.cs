@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using System.IO;
+using System.Numerics;
 using System;
 using CalculationProgram.Interfaces;
 using System.Text.RegularExpressions;
@@ -8,7 +9,7 @@ using CalculationProgram.Classes;
 namespace CalculationProgram;
 class CalculationProgram
 {
-    static void Main(string[] args)
+    static void Main(string[] args) 
     {
         IMenu menuSelector = new MenuSelector();
         IUniversum universum = new Universum();
